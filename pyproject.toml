@@ -1,0 +1,63 @@
+[project]
+name = "confhub"
+version = "0.2.0"
+description = "A platform-neutral conference management and real-user participation assistant."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+authors = [{ name = "ConfHub Contributors" }]
+dependencies = [
+    "apscheduler>=3.11,<4",
+    "asyncpg>=0.30",
+    "aiosqlite>=0.20",
+    "fastapi>=0.115",
+    "google-auth>=2.37",
+    "google-auth-oauthlib>=1.2",
+    "httpx>=0.28",
+    "openai>=1.59",
+    "pydantic-settings>=2.7",
+    "questionary>=2.0",
+    "rich>=13.9",
+    "sqlalchemy[asyncio]>=2.0",
+    "typer>=0.15",
+    "uvicorn[standard]>=0.34",
+]
+
+[project.optional-dependencies]
+dev = [
+    "alembic>=1.14",
+    "mypy>=1.14",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "ruff>=0.9",
+]
+
+[project.scripts]
+confhub = "confhub.cli:app"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/confhub"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B008"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+strict = true
+warn_unused_ignores = true
