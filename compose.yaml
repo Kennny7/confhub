@@ -1,0 +1,22 @@
+services:
+  api:
+    build: .
+    command: ["uv", "run", "confhub", "serve", "--host", "0.0.0.0"]
+    env_file: .env
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./data:/app/data
+      - ./secrets:/app/secrets
+    restart: unless-stopped
+
+  worker:
+    build: .
+    command: ["uv", "run", "confhub", "worker"]
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./secrets:/app/secrets
+    restart: unless-stopped
+    depends_on:
+      - api
