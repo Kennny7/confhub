@@ -41,7 +41,7 @@ It lets you register conference links or meeting codes across Microsoft Teams, G
 ## Project tree
 
 ```text
-meetbridge/           <- repository root (rename folder to confhub if desired)
+confhub/
 ├── .env.example
 ├── .dockerignore
 ├── .gitignore
